@@ -1,7 +1,7 @@
-import 'package:carros/counter_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:carros/counter_page.dart';
+import 'package:carros/counter_reduce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -15,8 +15,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final counterBloc = BlocProvider.of<CounterBloc>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -30,8 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
               Text(
                 'You have pushed the button this many times:',
               ),
-              BlocBuilder<CounterBloc, int>(
-                bloc: counterBloc,
+              StoreConnector<int, int>(
+                converter: (store) => store.state,
                 builder: (context, count) {
                   return Center(
                     child: Text(
@@ -40,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   );
                 },
-              ),
+              )
             ],
           ),
         ),
@@ -54,8 +52,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter() {
-    final counterBloc = BlocProvider.of<CounterBloc>(context);
-    counterBloc.dispatch(CounterEvent.increment);
+    final store = StoreProvider.of<int>(context);
+    store.dispatch(Acoes.Increment);
   }
 
   void _onClickCounter() {

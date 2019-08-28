@@ -1,16 +1,26 @@
-import 'package:carros/counter_bloc.dart';
 import 'package:carros/home_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:redux/redux.dart';
+import 'package:carros/counter_reduce.dart';
 
-void main() => runApp(MyApp());
+void main() { 
+  
+  final store = new Store<int>(counterReducer, initialState: 0);
+
+  runApp(MyApp(store));
+
+}
 
 class MyApp extends StatelessWidget {
+  Store<int> store;
+
+  MyApp(this.store);
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CounterBloc>(
-      builder: (BuildContext context) => CounterBloc(),
+    return StoreProvider(
+      store: store,
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

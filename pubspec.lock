@@ -8,13 +8,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
-  bloc:
-    dependency: "direct main"
-    description:
-      name: bloc
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.15.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -48,13 +41,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_bloc:
+  flutter_redux:
     dependency: "direct main"
     description:
-      name: flutter_bloc
+      name: flutter_redux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.21.0"
+    version: "0.5.3"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -88,13 +81,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.0"
-  provider:
-    dependency: transitive
-    description:
-      name: provider
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.1.0"
   quiver:
     dependency: transitive
     description:
@@ -102,20 +88,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.3"
-  rxdart:
+  redux:
     dependency: transitive
+    description:
+      name: redux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.0"
+  rxdart:
+    dependency: "direct main"
     description:
       name: rxdart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.22.2"
-  scoped_model:
-    dependency: "direct main"
-    description:
-      name: scoped_model
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
+    version: "0.21.0"
   sky_engine:
     dependency: transitive
     description: flutter

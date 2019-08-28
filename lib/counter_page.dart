@@ -1,6 +1,6 @@
-import 'package:carros/counter_bloc.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:carros/counter_reduce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 
 class CounterPage extends StatefulWidget {
   CounterPage({Key key}) : super(key: key);
@@ -11,28 +11,28 @@ class CounterPage extends StatefulWidget {
 class _CounterPageState extends State<CounterPage> {
   @override
   Widget build(BuildContext context) {
-    final counterBloc = BlocProvider.of<CounterBloc>(context);
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Counter'),
-      ),
-      body: BlocBuilder<CounterBloc, int>(
-        bloc: counterBloc,
-        builder: (context, count) {
-          return Center(
-            child: Text(
-              '$count',
-              style: TextStyle(fontSize: 24.0),
-            ),
-          );
-        },
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Counter'),
+        ),
+        body: StoreConnector<int, int>(
+          converter: (store) => store.state,
+          builder: (context, count) {
+            return GestureDetector(
+              onTap: _incrementCounter,
+              child: Center(
+                child: Text(
+                  '$count',
+                  style: TextStyle(fontSize: 24.0),
+                ),
+              ),
+            );
+          },
+        ));
   }
 
   void _incrementCounter() {
-    final counterBloc = BlocProvider.of<CounterBloc>(context);
-    counterBloc.dispatch(CounterEvent.increment);
+    final store = StoreProvider.of<int>(context);
+    store.dispatch(Acoes.Increment);
   }
 }
