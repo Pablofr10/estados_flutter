@@ -1,36 +1,20 @@
-import 'dart:async';
+import 'package:bloc/bloc.dart';
 
-import 'package:flutter/material.dart';
+enum CounterEvent { increment, decrement }
 
-class CounterBloc {
+class CounterBloc extends Bloc<CounterEvent, int> {
+  @override
+  int get initialState => 0;
 
-  //Singleton
-  static final CounterBloc _instance = new CounterBloc._internal();
-  factory CounterBloc(){
-    return _instance;
+  @override
+  Stream<int> mapEventToState(CounterEvent event) async* {
+    switch (event) {
+      case CounterEvent.decrement:
+        yield currentState - 1;
+        break;
+      case CounterEvent.increment:
+        yield currentState + 1;
+        break;
+    }
   }
-
-  CounterBloc._internal();
-
-
-  final _controller = StreamController<int>.broadcast();
-  
-  get stream => _controller.stream;
-
-  int _counter = 0;
-
-  int get counter => _counter;
-
-
-  void increment(){
-    _counter++;
-
-    _controller.sink.add(_counter);
-  }
-
-  close(){
-
-    _controller.close();
-  }
-
 }
