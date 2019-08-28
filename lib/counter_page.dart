@@ -1,10 +1,8 @@
+import 'package:carros/counter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
-
-import 'counter_model.dart';
 
 class CounterPage extends StatelessWidget {
-  const CounterPage({Key key}) : super(key: key);
+  final _bloc = CounterBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +10,14 @@ class CounterPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Counter'),
       ),
-      body: ScopedModelDescendant<CountModel>(
-        builder: (context, child, model) {
-          return Center(
-            child: Text(
-            '${model.counter}',
+      body: StreamBuilder<int>(
+        initialData: _bloc.counter,
+        stream: _bloc.stream,
+        builder: (context, snapshot) {
+          int count = snapshot.hasData ? snapshot.data : 0;
+          return Text(
+            '$count',
             style: Theme.of(context).textTheme.display1,
-          ),
           );
         },
       ),
