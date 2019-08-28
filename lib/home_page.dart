@@ -1,7 +1,7 @@
-import 'package:carros/counter_model.dart';
+import 'package:carros/bloc_provider.dart';
+import 'package:carros/counter_bloc.dart';
 import 'package:carros/counter_page.dart';
 import 'package:flutter/material.dart';
-import 'package:scoped_model/scoped_model.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -12,9 +12,13 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> {  
+
   @override
   Widget build(BuildContext context) {
+
+    final _bloc = BlocProvider.of(context).bloc;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -28,10 +32,12 @@ class _MyHomePageState extends State<MyHomePage> {
               Text(
                 'You have pushed the button this many times:',
               ),
-              ScopedModelDescendant<CountModel>(
-                builder: (context, child, model){
+              StreamBuilder<int>(
+                stream: _bloc.stream,
+                builder: (context, snapshot){
+                  int count = snapshot.hasData ? snapshot.data : 0;
                   return Text(
-                  '${model.counter}',
+                  '$count',
                   style: Theme.of(context).textTheme.display1,
                 );
                 },
@@ -49,12 +55,22 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter(){
-    final model = CountModel.of(context);
-    model.increment();
+    final _bloc = BlocProvider.of(context).bloc;
+    _bloc.increment();
   }
 
   void _onClickCounter() {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => CounterPage()));
   }
+
+  @override
+  void dispose() {
+    final _bloc = BlocProvider.of(context).bloc;
+    // TODO: implement dispose
+    super.dispose();
+
+    _bloc.close();
+  }
+
 }
