@@ -1,19 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
 
 class CounterBloc {
 
-  //Singleton
-  static final CounterBloc _instance = new CounterBloc._internal();
-  factory CounterBloc(){
-    return _instance;
-  }
-
-  CounterBloc._internal();
-
-
-  final _controller = StreamController<int>.broadcast();
+  final _controller = BehaviorSubject<int>();
   
   get stream => _controller.stream;
 

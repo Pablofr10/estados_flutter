@@ -1,3 +1,4 @@
+import 'package:carros/bloc_provider.dart';
 import 'package:carros/counter_bloc.dart';
 import 'package:carros/counter_page.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,13 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
-  final _bloc = CounterBloc();
+class _MyHomePageState extends State<MyHomePage> {  
 
   @override
   Widget build(BuildContext context) {
+
+    final _bloc = BlocProvider.of(context).bloc;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -53,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _incrementCounter(){
+    final _bloc = BlocProvider.of(context).bloc;
     _bloc.increment();
   }
 
@@ -63,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void dispose() {
+    final _bloc = BlocProvider.of(context).bloc;
     // TODO: implement dispose
     super.dispose();
 
